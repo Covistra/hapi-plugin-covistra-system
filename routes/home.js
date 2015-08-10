@@ -19,11 +19,13 @@ module.exports = function() {
     return {
         method: 'GET',
         path: '/',
-        view: {
-            template: 'home',
-            context: {
-                app_title: "My App",
-                app_name: "my_app"
+        handler: {
+            view: {
+                template: 'home',
+                context: {
+                    app_title: "My App",
+                    app_name: "my_app"
+                }
             }
         }
     }
