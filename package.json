@@ -1,0 +1,16 @@
+{
+  "name": "covistra-system",
+  "version": "0.1.0",
+  "dependencies": {
+    "bluebird": "^2.9.34",
+    "bunyan": "^1.4.0",
+    "bunyan-format": "^0.2.1",
+    "calibrate": "^2.0.2",
+    "handlebars": "^3.0.3",
+    "jsep": "^0.3.0",
+    "lodash": "^3.10.1",
+    "moment": "^2.10.6",
+    "require-directory": "^2.1.1",
+    "trim": "0.0.1"
+  }
+}

@@ -1,0 +1,46 @@
+<html>
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        html, body {
+            background-color: #999;
+            font-family:"Helvetica Neue Light", "Lucida Grande", "Calibri", "Arial", sans-serif;
+        }
+
+        .box {
+            margin: auto;
+            margin-top:50px;
+            width: 50%;
+            padding:35px;
+            border: 1px solid #eee;
+            border-radius: 7px;
+            background-color: white;
+            box-shadow: 2px 2px 5px black;
+        }
+
+        i.fa-lock {
+            margin:20px;
+        }
+
+        ul {
+            padding:10px;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 30px;
+        }
+
+        li {
+            list-style: square;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    {{> head }}
+
+    {{{content}}}
+
+    {{> foot }}
+</body>
+</html>
