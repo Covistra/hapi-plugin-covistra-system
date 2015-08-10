@@ -1,10 +1,10 @@
 {
   "name": "covistra-system",
-  "version": "0.2.2-pre",
+  "version": "0.2.2",
   "author": "Joel Grenon <joelgrenon@covistra.com>",
   "description": "Hapi plugin acting as the foundation for the Covistra Mobile Backend Framework",
   "homepage": "http://www.covistra.com/framework/messaging",
-  "repository":{
+  "repository": {
     "type": "git",
     "url": "https://github.com/Covistra/hapi-plugin-covistra-system"
   },
