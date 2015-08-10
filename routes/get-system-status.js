@@ -21,7 +21,7 @@ var P = require('bluebird'),
     _ = require('lodash');
 
 module.exports = function(server) {
-    var SystemStatus = server.plugins['system'].SystemStatus;
+    var SystemStatus = server.plugins['covistra-system'].SystemStatus;
 
     function handler(req, reply) {
         server.log(['plugin', 'users', 'debug'], "Handling system status");
