@@ -14,7 +14,9 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-module.exports = function() {
+module.exports = function(server) {
+
+    var cfg = server.plugins['hapi-config'].CurrentConfiguration;
 
     return {
         method: 'GET',
@@ -22,9 +24,9 @@ module.exports = function() {
         handler: {
             view: {
                 template: 'home',
-                context: {
-                    app_title: "My App",
-                    app_name: "my_app"
+                context: cfg.get('server:info') || {
+                    app_title: "CMBF App",
+                    app_name: "cmbf_app"
                 }
             }
         }
