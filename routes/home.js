@@ -18,16 +18,20 @@ module.exports = function(server) {
 
     var cfg = server.plugins['hapi-config'].CurrentConfiguration;
 
+    var ctx = cfg.get('server:info') || {
+        app_title: "CMBF App",
+        app_name: "cmbf_app"
+    };
+
+    ctx.admin_url = server.select('admin').info.uri + "/admin";
+
     return {
         method: 'GET',
         path: '/',
         handler: {
             view: {
                 template: 'home',
-                context: cfg.get('server:info') || {
-                    app_title: "CMBF App",
-                    app_name: "cmbf_app"
-                }
+                context: ctx
             }
         }
     }
