@@ -20,5 +20,9 @@
     "moment": "^2.10.6",
     "require-directory": "^2.1.1",
     "trim": "0.0.1"
+  },
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "sinon": "^1.15.4"
   }
 }
