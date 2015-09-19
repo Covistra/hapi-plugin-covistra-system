@@ -16,7 +16,9 @@
                 <h2>Important Links</h2>
                 <ul class="nav">
                     <li><a href="/documentation">API Documentation</a></li>
+                    {{#if admin_url}}
                     <li><a href="{{admin_url}}">Admin Console</a></li>
+                    {{/if}}
                     <li><a href="#" target="_blank">{{app.name}} SDK</a></li>
                 </ul>
             </div>

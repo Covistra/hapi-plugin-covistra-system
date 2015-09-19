@@ -23,7 +23,10 @@ module.exports = function(server) {
         app_name: "cmbf_app"
     };
 
-    ctx.admin_url = cfg.get("plugins:admin:url") || server.select('admin').info.uri + "/admin";
+    var adminServer = server.select('admin');
+    if(adminServer) {
+        ctx.admin_url = cfg.get("plugins:admin:url") || server.select('admin').info.uri + "/admin";
+    }
 
     return {
         method: 'GET',
@@ -35,4 +38,5 @@ module.exports = function(server) {
             }
         }
     }
+
 };
