@@ -15,6 +15,7 @@
  limitations under the License.
  */
 var P = require('bluebird'),
+    path = require('path'),
     _ = require('lodash');
 
 module.exports = function(server, log, config) {
@@ -35,7 +36,12 @@ module.exports = function(server, log, config) {
     };
 
     SystemStatus.prototype.reportSystemStatus = P.method(function() {
-        return this.subsystems;
+        var pkg = require(path.resolve(process.cwd(), "package.json"));
+
+        return {
+            subsystems: thissubsystems,
+            version: pkg.version
+        };
     });
 
     return new SystemStatus();
