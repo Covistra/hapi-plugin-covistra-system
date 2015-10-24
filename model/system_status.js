@@ -39,7 +39,7 @@ module.exports = function(server, log, config) {
         var pkg = require(path.resolve(process.cwd(), "package.json"));
 
         return {
-            subsystems: thissubsystems,
+            subsystems: this.subsystems,
             version: pkg.version
         };
     });
