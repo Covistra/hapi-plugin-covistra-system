@@ -39,6 +39,7 @@ exports.register = function (plugin, options, next) {
     plugin.expose('TemplateEngine', require('./lib/template-engine'));
     plugin.expose('Router', Router);
     plugin.expose('resolveDeps', require('./lib/resolve_deps')(plugin, systemLog, config));
+    plugin.expose('random', require('./lib/id-generator')(plugin, systemLog, config));
 
     // Register routes
     Router.routes(plugin, __dirname, './routes');

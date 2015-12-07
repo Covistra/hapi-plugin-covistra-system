@@ -17,6 +17,7 @@
     "handlebars": "^3.0.3",
     "jsep": "^0.3.0",
     "lodash": "^3.10.1",
+    "meteor-random": "0.0.3",
     "moment": "^2.10.6",
     "require-directory": "^2.1.1",
     "trim": "0.0.1"
