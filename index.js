@@ -28,7 +28,7 @@ exports.register = function (plugin, options, next) {
     var systemLog = bunyan.createLogger(config.get('plugins:system:root_log', { name:'cmbf-system', stream: formatOut }));
     var Router = require('./lib/route-loader')(plugin, systemLog, config);
 
-	// Register model
+    // Register model
     var SystemStatus = require('./model/system_status')(plugin, systemLog, config);
 
     plugin.expose('SystemStatus', SystemStatus);
@@ -55,7 +55,41 @@ exports.register = function (plugin, options, next) {
         layoutPath: "./views/layouts"
     });
 
-    next();
+    var cfg = config.get('plugins:micro-service');
+
+    var Services = require('./lib/discover-service')(plugin, config, systemLog);
+
+    server.expose('Services', Services);
+
+    function _promisifyEntity(entity) {
+        if(entity) {
+            entity.list$ = P.promisify(entity.list$, {context: entity});
+            entity.save$ = P.promisify(entity.save$, {context: entity});
+            entity._load$ = P.promisify(entity.load$, {context: entity});
+            entity.load$ = function() {
+                return this._load$.apply(this, arguments).then(_promisifyEntity);
+            };
+            entity.remove$ = P.promisify(entity.remove$, {context: entity});
+            entity.native$ = P.promisify(entity.native$, { context: entity});
+        }
+        return entity;
+    }
+
+    // Register a few promisify methods
+    server.seneca.actAsync = P.promisify(server.seneca.act, {context:server.seneca});
+    server.seneca.makeAsync$ = function() {
+        return _promisifyEntity(this.make$.apply(this, arguments));
+    };
+
+    // Abstract the use of Seneca
+    server.expose('service', server.seneca.actAsync.bind(server.seneca));
+
+    return P.each(_.keys(cfg.plugins), function(pluginKey) {
+        systemLog.debug("Installing Seneca plugin", pluginKey);
+        server.seneca.use(pluginKey, cfg.plugins[pluginKey]);
+    }).then(function() {
+        return Services.discover(__dirname, "services");
+    }).finally(next);
 };
 
 exports.register.attributes = {

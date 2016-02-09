@@ -16,16 +16,12 @@
  */
 "use strict";
 
-var P = require('bluebird'),
-    Calibrate = require('calibrate'),
-    _ = require('lodash');
+var Calibrate = require('calibrate');
 
-module.exports = function(server) {
-    var SystemStatus = server.plugins['covistra-system'].SystemStatus;
+module.exports = function() {
 
     function handler(req, reply) {
-        server.log(['plugin', 'users', 'debug'], "Handling system status");
-        SystemStatus.reportSystemStatus().catch(Calibrate.error).then(reply);
+        reply.act({role: 'system', target: 'status', action:'read'}).catch(Calibrate.error).then(reply);
     }
 
     return {
