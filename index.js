@@ -85,7 +85,7 @@ exports.register = function (plugin, options, next) {
     };
 
     // Abstract the use of Seneca
-    plugin.expose('service', plugin.seneca.actAsync.bind(plugin.seneca));
+    plugin.service = plugin.seneca.actAsync.bind(plugin.seneca);
 
     return P.each(_.keys(cfg.plugins), function(pluginKey) {
         systemLog.debug("Installing Seneca plugin", pluginKey);

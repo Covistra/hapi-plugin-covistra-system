@@ -21,7 +21,7 @@ var Calibrate = require('calibrate');
 module.exports = function(server) {
 
     function handler(req, reply) {
-        server.service({role: 'system', target: 'status', action:'read'}).catch(Calibrate.error).then(reply);
+        server.seneca.actAsync({role: 'system', target: 'status', action:'read'}).catch(Calibrate.error).then(reply);
     }
 
     return {
