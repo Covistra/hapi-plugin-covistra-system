@@ -55,11 +55,11 @@ exports.register = function (plugin, options, next) {
         layoutPath: "./views/layouts"
     });
 
-    var cfg = config.get('plugins:micro-service');
+    var cfg = config.get('plugins:system:seneca');
 
     var Services = require('./lib/discover-service')(plugin, config, systemLog);
 
-    server.expose('Services', Services);
+    plugin.expose('Services', Services);
 
     function _promisifyEntity(entity) {
         if(entity) {
@@ -76,17 +76,17 @@ exports.register = function (plugin, options, next) {
     }
 
     // Register a few promisify methods
-    server.seneca.actAsync = P.promisify(server.seneca.act, {context:server.seneca});
-    server.seneca.makeAsync$ = function() {
+    plugin.seneca.actAsync = P.promisify(plugin.seneca.act, {context:plugin.seneca});
+    plugin.seneca.makeAsync$ = function() {
         return _promisifyEntity(this.make$.apply(this, arguments));
     };
 
     // Abstract the use of Seneca
-    server.expose('service', server.seneca.actAsync.bind(server.seneca));
+    plugin.expose('service', plugin.seneca.actAsync.bind(plugin.seneca));
 
     return P.each(_.keys(cfg.plugins), function(pluginKey) {
         systemLog.debug("Installing Seneca plugin", pluginKey);
-        server.seneca.use(pluginKey, cfg.plugins[pluginKey]);
+        plugin.seneca.use(pluginKey, cfg.plugins[pluginKey]);
     }).then(function() {
         return Services.discover(__dirname, "services");
     }).finally(next);
