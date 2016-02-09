@@ -26,7 +26,9 @@ exports.register = function (plugin, options, next) {
     plugin.log(['plugin', 'info'], "Registering the System plugin");
 
     var config = plugin.plugins['hapi-config'].CurrentConfiguration;
-    var systemLog = bunyan.createLogger(config.get('plugins:system:root_log', { name:'cmbf-system', stream: formatOut }));
+    var logCfg = config.get('plugins:system:root_log', { name:'cmbf-system'});
+    logCfg.stream = formatOut;
+    var systemLog = bunyan.createLogger(logCfg);
     var Router = require('./lib/route-loader')(plugin, systemLog, config);
 
     // Register model
