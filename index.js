@@ -20,6 +20,7 @@ var bunyan = require('bunyan');
 var bformat = require('bunyan-format');
 var formatOut = bformat({ outputMode: 'short' });
 var _ = require('lodash');
+var P = require('bluebird');
 
 exports.register = function (plugin, options, next) {
     plugin.log(['plugin', 'info'], "Registering the System plugin");
