@@ -58,7 +58,7 @@ exports.register = function (plugin, options, next) {
         layoutPath: "./views/layouts"
     });
 
-    var cfg = config.get('plugins:system:seneca');
+    var cfg = config.get('plugins:system:seneca', {plugins:[]});
 
     var Services = require('./lib/discover-service')(plugin, config, systemLog);
 

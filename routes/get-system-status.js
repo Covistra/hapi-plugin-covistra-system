@@ -18,10 +18,10 @@
 
 var Calibrate = require('calibrate');
 
-module.exports = function() {
+module.exports = function(server) {
 
     function handler(req, reply) {
-        reply.act({role: 'system', target: 'status', action:'read'}).catch(Calibrate.error).then(reply);
+        server.service({role: 'system', target: 'status', action:'read'}).catch(Calibrate.error).then(reply);
     }
 
     return {
