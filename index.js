@@ -30,19 +30,26 @@ exports.register = function (plugin, options, next) {
     logCfg.stream = formatOut;
     var systemLog = bunyan.createLogger(logCfg);
     var Router = require('./lib/route-loader')(plugin, systemLog, config);
+    var clock = require('./lib/clock');
+    var resolveDeps = require('./lib/resolve_deps')(plugin, systemLog, config);
 
     // Register model
     var SystemStatus = require('./model/system_status')(plugin, systemLog, config);
 
     plugin.expose('SystemStatus', SystemStatus);
-    plugin.expose('clock', require('./lib/clock'));
+    plugin.expose('clock', clock);
     plugin.expose('systemLog', systemLog);
     plugin.expose('RestUtils', require('./lib/rest_utils'));
     plugin.expose('Report', require('./lib/report'));
     plugin.expose('TemplateEngine', require('./lib/template-engine'));
     plugin.expose('Router', Router);
-    plugin.expose('resolveDeps', require('./lib/resolve_deps')(plugin, systemLog, config));
+    plugin.expose('resolveDeps', resolveDeps);
     plugin.expose('random', require('./lib/id-generator')(plugin, systemLog, config));
+
+    plugin.decorate('server', 'systemLog', systemLog);
+    plugin.decorate('server', 'Router', Router);
+    plugin.decorate('server', 'clock', clock);
+    plugin.decorate('server', 'resolveDeps', resolveDeps);
 
     // Register routes
     Router.routes(plugin, __dirname, './routes');

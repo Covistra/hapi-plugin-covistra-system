@@ -15,6 +15,7 @@
     "bunyan-format": "^0.2.1",
     "calibrate": "^3.0.0",
     "handlebars": "^4.0.5",
+    "joi": "^7.3.0",
     "jsep": "^0.3.0",
     "lodash": "^3.10.1",
     "meteor-random": "0.0.3",
