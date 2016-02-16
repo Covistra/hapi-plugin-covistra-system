@@ -1,6 +1,6 @@
 {
   "name": "covistra-system",
-  "version": "0.7.8",
+  "version": "0.7.9-pre",
   "author": "Joel Grenon <joelgrenon@covistra.com>",
   "description": "Hapi plugin acting as the foundation for the Covistra Mobile Backend Framework",
   "homepage": "http://www.covistra.com/framework/messaging",
