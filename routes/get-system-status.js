@@ -29,7 +29,10 @@ module.exports = function(server) {
         path: '/status',
         handler: handler,
         config: {
-            tags: ['api']
+            tags: ['api'],
+            cache: {
+                expiresIn: 30 * 1000
+            }
         }
     };
 };
