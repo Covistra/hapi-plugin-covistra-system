@@ -96,6 +96,10 @@ exports.register = function (plugin, options, next) {
         return this.seneca.actAsync.apply(this.seneca.actAsync, arguments);
     });
 
+    plugin._parent.cmbf.service = function() {
+        return plugin._parent.seneca.actAsync.apply(plugin._parent.seneca.actAsync, arguments);
+    };
+
     return P.each(_.keys(cfg.plugins), function(pluginKey) {
         systemLog.debug("Installing Seneca plugin", pluginKey);
         plugin.seneca.use(pluginKey, cfg.plugins[pluginKey]);
