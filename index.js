@@ -32,6 +32,7 @@ exports.register = function (plugin, options, next) {
     var Router = require('./lib/route-loader')(plugin, systemLog, config);
     var clock = require('./lib/clock');
     var resolveDeps = require('./lib/resolve_deps')(plugin, systemLog, config);
+    var injector = require('./lib/injector')(plugin, config, systemLog);
 
     // Register model
     var SystemStatus = require('./model/system_status')(plugin, systemLog, config);
@@ -45,11 +46,13 @@ exports.register = function (plugin, options, next) {
     plugin.expose('Router', Router);
     plugin.expose('resolveDeps', resolveDeps);
     plugin.expose('random', require('./lib/id-generator')(plugin, systemLog, config));
+    plugin.expose('injector', injector);
 
     plugin.decorate('server', 'systemLog', systemLog);
     plugin.decorate('server', 'Router', Router);
     plugin.decorate('server', 'clock', clock);
     plugin.decorate('server', 'resolveDeps', resolveDeps);
+    plugin.decorate('server', 'injector', injector);
 
     // Register routes
     Router.routes(plugin, __dirname, './routes');
